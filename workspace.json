@@ -1,10 +1,25 @@
 {
-  
-  
   "version": 2,
-  
-  "projects": {},
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+  "projects": {
+    "reduxify": {
+      "root": "packages/reduxify",
+      "sourceRoot": "packages/reduxify/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["packages/reduxify/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/reduxify"],
+          "options": {
+            "jestConfig": "packages/reduxify/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": { "defaultCollection": "@nrwl/workspace" }
 }
