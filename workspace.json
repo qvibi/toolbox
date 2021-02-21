@@ -8,18 +8,41 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["packages/reduxify/**/*.ts"] }
+          "options": {
+            "lintFilePatterns": [
+              "packages/reduxify/**/*.ts"
+            ]
+          }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/reduxify"],
+          "outputs": [
+            "coverage/packages/reduxify"
+          ],
           "options": {
             "jestConfig": "packages/reduxify/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/reduxify",
+            "tsConfig": "packages/reduxify/tsconfig.lib.json",
+            "packageJson": "packages/reduxify/package.json",
+            "main": "packages/reduxify/src/index.ts",
+            "assets": [
+              "packages/reduxify/*.md"
+            ]
           }
         }
       }
     }
   },
-  "cli": { "defaultCollection": "@nrwl/workspace" }
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  }
 }

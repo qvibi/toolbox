@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@toolbox/reduxify": ["packages/reduxify/src/index.ts"]
+      "@qvibi/toolbox/reduxify": ["packages/reduxify/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
