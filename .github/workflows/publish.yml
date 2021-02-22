@@ -14,15 +14,15 @@ jobs:
           node-version: "12.x"
       - run: npm ci
       - run: npm run test:all
-      - run: npm build core
-      - run: npm build reduxify
+      - run: npm run build core
+      - run: npm run build reduxify
       - uses: actions/setup-node@v1
         with:
           registry-url: "https://registry.npmjs.org"
-      - run: npm publish ./dist/core --access public
+      - run: npm publish ./dist/packages/core --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm publish ./dist/reduxify --access public
+      - run: npm publish ./dist/packages/reduxify --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
