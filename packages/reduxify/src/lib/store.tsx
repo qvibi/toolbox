@@ -1,3 +1,5 @@
+import React from 'react';
+import { Provider } from 'react-redux';
 import { createStore as createReduxStore, compose, applyMiddleware, Store, Middleware } from 'redux';
 import createSagaMiddleware, { Task, END } from 'redux-saga';
 import { take as sagaTake } from 'redux-saga/effects';
@@ -8,7 +10,6 @@ import { AnyQvibiFrontEndModule } from './module';
 import { createStoreMiddlwareMngr } from './middlewares';
 import { AnyQvibiMessage } from './message';
 import { combineReducers, IQvibiReducersMap } from './reducer';
-import { call, delay, all } from './effects';
 
 export interface IQvibiStore {
     addMiddlware(middlware: Middleware): void;
@@ -36,7 +37,7 @@ export function createStore(options: IQvibiStoreOptions): IQvibiStore {
     const middlwares = createStoreMiddlwareMngr();
 
     let composeEnhancers = compose;
-    if (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+    if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
         composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ as typeof compose) || compose;
     }
 
@@ -85,4 +86,8 @@ export function createStore(options: IQvibiStoreOptions): IQvibiStore {
             return task.toPromise();
         },
     };
+}
+
+export function withStore(store: IQvibiStore, node: React.ReactNode) {
+    return <Provider store={store.getReduxStore()}>{node}</Provider>;
 }

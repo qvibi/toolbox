@@ -12,11 +12,9 @@ import {
     fork,
     all,
     delay,
-    ActionPattern,
     ForkEffect,
     PutEffect,
     RaceEffect,
-    AllEffect,
 } from 'redux-saga/effects';
 
 import { AnyQvibiMessage, AnyQvibiMessageDef, ExtractQvibiMessage } from './message';
@@ -25,7 +23,7 @@ import { AnyQvibiFrontEndModuleDef } from './module';
 type SagaResult<TResult> = Generator<unknown, TResult>;
 type ExtractSagaResult<T> = T extends SagaResult<infer TResult> ? TResult : never;
 
-function defToPattern(msgDef: AnyQvibiMessageDef | AnyQvibiMessageDef[]): ActionPattern {
+function defToPattern(msgDef: AnyQvibiMessageDef | AnyQvibiMessageDef[]): string | string[] {
     if (Array.isArray(msgDef)) {
         return msgDef.map(def => def.type);
     }
@@ -91,5 +89,5 @@ function createEffects<T extends AnyQvibiFrontEndModuleDef>(moduleDef: T, handle
 
 export { SagaResult, ExtractSagaResult };
 export { take, takeEvery, takeLatest, takeLeading, put };
-export { race, call, select, cancel, cancelled, fork, all, delay, ActionPattern, ForkEffect, PutEffect, RaceEffect, AllEffect };
+export { race, call, select, cancel, cancelled, fork, all, delay };
 export { QvibiEffect, createEffect, QvibiModuleEffect, createEffects };
