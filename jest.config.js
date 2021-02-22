@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/packages/reduxify'],
+    projects: ['<rootDir>/packages/reduxify', '<rootDir>/packages/core'],
 };

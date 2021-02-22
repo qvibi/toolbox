@@ -1,20 +1,17 @@
 {
-  "npmScope": "toolbox",
-  "affected": { "defaultBase": "master" },
-  "implicitDependencies": {
-    "workspace.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
-    "tsconfig.base.json": "*",
-    "tslint.json": "*",
-    ".eslintrc.json": "*",
-    "nx.json": "*"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
-    }
-  },
-  "projects": { "reduxify": { "tags": [] } },
-  "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" }
+    "implicitDependencies": {
+        "workspace.json": "*",
+        "package.json": { "dependencies": "*", "devDependencies": "*" },
+        "tsconfig.base.json": "*",
+        "tslint.json": "*",
+        ".eslintrc.json": "*",
+        "nx.json": "*"
+    },
+    "affected": { "defaultBase": "master" },
+    "npmScope": "toolbox",
+    "tasksRunnerOptions": {
+        "default": { "runner": "@nrwl/workspace/tasks-runners/default", "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] } }
+    },
+    "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" },
+    "projects": { "reduxify": { "tags": [] }, "core": { "tags": [] } }
 }
