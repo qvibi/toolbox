@@ -38,7 +38,8 @@
                 "input": ".",
                 "output": "."
               }
-            ]
+            ],
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           }
         },
         "lint": {
