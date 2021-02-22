@@ -100,17 +100,6 @@
           }
         }
       }
-    },
-    "workspace": {
-      "targets": {
-        "version": {
-          "executor": "@jscutlery/semver:version",
-          "options": {
-            "syncVersions": true
-          }
-        }
-      },
-      "root": "."
     }
   }
 }
