@@ -14,8 +14,8 @@ jobs:
           node-version: "12.x"
       - run: npm ci
       - run: npm run test:all
-      - run: npm build core
-      - run: npm build reduxify
+      - run: npm run build core
+      - run: npm run build reduxify
       - uses: actions/setup-node@v1
         with:
           registry-url: "https://registry.npmjs.org"
