@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
-import { IQvibiModule } from '@qvibi/toolbox/core';
+import { IQvibiModule } from '@qvibi-toolbox/core';
 import { QvibiModuleEffect } from './effects';
 import { IQvibiReducer } from './reducer';
 
