@@ -19,10 +19,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           registry-url: "https://registry.npmjs.org"
-      - run: npm publish ./dist/core --access public
+      - run: npm publish ./dist/packages/core --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm publish ./dist/reduxify --access public
+      - run: npm publish ./dist/packages/reduxify --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
