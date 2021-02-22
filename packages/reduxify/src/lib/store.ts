@@ -35,7 +35,11 @@ export function createStore(options: IQvibiStoreOptions): IQvibiStore {
     const sagaRuntime = createSagaMiddleware();
     const middlwares = createStoreMiddlwareMngr();
 
-    const composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ as typeof compose) || compose;
+    let composeEnhancers = compose;
+    if (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+        composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ as typeof compose) || compose;
+    }
+
     const store = createReduxStore(initialReducers, initialState, composeEnhancers(applyMiddleware(sagaRuntime, middlwares.enhancer)));
 
     // register reducers
