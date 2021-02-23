@@ -1,5 +1,5 @@
 import { createModule } from '@qvibi-toolbox/reduxify';
-import { store } from 'examples/frontend/store';
+import { store } from '../../../core';
 
 import { page1ModuleDef } from './def';
 import { reducer } from './store/reducer';

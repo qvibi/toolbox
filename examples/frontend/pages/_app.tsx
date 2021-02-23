@@ -5,7 +5,7 @@ import { ReactComponent as NxLogo } from '../public/nx-logo-white.svg';
 import './styles.css';
 
 import { withStore } from '@qvibi-toolbox/reduxify';
-import { store } from '../store';
+import { store } from '../app/core';
 
 function CustomApp({ Component, pageProps }: AppProps) {
     return withStore(
