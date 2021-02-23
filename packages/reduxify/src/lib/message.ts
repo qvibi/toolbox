@@ -35,7 +35,7 @@ export type ExtractQvibiMessage<TMessageDef> = TMessageDef extends Array<infer T
     ? IQvibiMessage<TType, TPayload>
     : never;
 
-export function defineMsg<
+function defineMsg<
     TModuleDef extends AnyQvibiFrontEndModuleDef,
     TModuleName extends ExtractQvibiFrontEndModuleName<TModuleDef>,
     TType extends string,
@@ -52,3 +52,16 @@ export function defineMsg<
 }
 
 export const withPayload = <TPayload = Record<string, never>>(_payload?: TPayload): TPayload => null as never;
+
+export function defineMsgs<
+    TModuleDef extends AnyQvibiFrontEndModuleDef,
+    TModuleName extends ExtractQvibiFrontEndModuleName<TModuleDef>,
+    TType extends string,
+    TPayload
+>(
+    moduleDef: TModuleDef,
+): <TType extends string, TPayload>(type: `${TType}`, _payload: TPayload) => IQvibiMessageCreator<`${TModuleName} ${TType}`, TPayload> {
+    return (type, payload) => {
+        return defineMsg(moduleDef, type, payload);
+    };
+}

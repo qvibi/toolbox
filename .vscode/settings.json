@@ -1,0 +1,5 @@
+{
+    "javascript.preferences.useAliasesForRenames": false,
+    "typescript.preferences.useAliasesForRenames": false,
+    "typescript.tsdk": "node_modules\\typescript\\lib"
+}

@@ -2,19 +2,19 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
 import { IQvibiModule } from '@qvibi-toolbox/core';
-import { QvibiModuleEffect } from './effects';
+import { QvibiModuleSaga } from './effects';
 import { IQvibiReducer } from './reducer';
 
 export interface IQvibiFrontEndModule<TModuleDef extends AnyQvibiFrontEndModuleDef> extends IQvibiModule<ExtractQvibiFrontEndModuleName<TModuleDef>> {
-    reducer: IQvibiReducer<ExtractQvibiFrontEndModuleState<TModuleDef>> | null;
-    effects: QvibiModuleEffect<TModuleDef> | null;
+    reducer: IQvibiReducer<TModuleDef> | null;
+    saga: QvibiModuleSaga<TModuleDef> | null;
 }
 
 export type AnyQvibiFrontEndModule = IQvibiFrontEndModule<any>;
 
 export interface IQvibiFrontEndModuleOptions<TModuleDef extends AnyQvibiFrontEndModuleDef> {
-    reducer?: IQvibiReducer<ExtractQvibiFrontEndModuleState<TModuleDef>>;
-    effects?: QvibiModuleEffect<TModuleDef> | null;
+    reducer?: IQvibiReducer<TModuleDef>;
+    saga?: QvibiModuleSaga<TModuleDef> | null;
 }
 
 export interface IQvibiFrontEndModuleDefOptions<TFeatureName extends string, _TState> {
@@ -23,7 +23,6 @@ export interface IQvibiFrontEndModuleDefOptions<TFeatureName extends string, _TS
 
 export interface IQvibiFrontEndModuleDef<TFeatureName extends `${string}`, _TState> {
     moduleName: TFeatureName;
-    create(options: IQvibiFrontEndModuleOptions<this>): IQvibiFrontEndModule<this>;
 }
 
 export type AnyQvibiFrontEndModuleDef = IQvibiFrontEndModuleDef<any, any>;
@@ -37,13 +36,6 @@ export function defineModule<TModuleName extends `${string}`, TState>(
 ): IQvibiFrontEndModuleDef<`${TModuleName}`, TState> {
     return {
         moduleName: `${defOptions.moduleName}` as `${TModuleName}`,
-        create: options => {
-            return {
-                moduleName: `${defOptions.moduleName}` as `${TModuleName}`,
-                reducer: options.reducer,
-                effects: options.effects,
-            };
-        },
     };
 }
 
@@ -51,4 +43,15 @@ export interface NoState extends Record<string, never> {}
 
 export function withState<TState = NoState>(_payload?: TState): TState {
     return null;
+}
+
+export function createModule<TModuleDef extends AnyQvibiFrontEndModuleDef>(
+    moduleDef: TModuleDef,
+    options: IQvibiFrontEndModuleOptions<TModuleDef>,
+): IQvibiFrontEndModule<TModuleDef> {
+    return {
+        moduleName: moduleDef.moduleName,
+        reducer: options.reducer,
+        saga: options.saga,
+    };
 }
