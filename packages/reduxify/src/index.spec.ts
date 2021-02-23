@@ -5,46 +5,48 @@ import {
     createStore,
     createModuleSelector,
     createSelector,
-    defineMsg,
+    defineMsgs,
     withPayload,
-    mutate,
-    createEffects,
-    createEffect,
+    on,
+    createModuleSaga,
+    createMsgSaga,
     put,
     takeEvery,
 } from './index';
+import { createModule } from './lib/module';
 
 describe('reduxify', () => {
     it('should work', async () => {
         const module1Def = defineModule({ moduleName: 'module1' }, withState<{ message: string }>());
 
-        const msg11Def = defineMsg(module1Def, 'modify_message', withPayload());
-        const msg12Def = defineMsg(module1Def, 'message_changed', withPayload<{ newMessage: string }>());
+        const defineMsg = defineMsgs(module1Def);
+        const modifyMessageAction = defineMsg('modify_message', withPayload());
+        const messageChangedEvent = defineMsg('message_changed', withPayload<{ newMessage: string }>());
 
         const reducer1 = createReducer(module1Def, { message: 'hello' }, [
-            mutate(msg12Def, (state, msg) => {
+            on(messageChangedEvent, (state, payload) => {
                 return {
                     ...state,
-                    message: msg.payload.newMessage,
+                    message: payload.newMessage,
                 };
             }),
         ]);
 
-        const effects1 = createEffects(module1Def, function* () {
-            const onMsg1 = createEffect(msg11Def, function* () {
-                yield put(msg12Def({ newMessage: 'world!' }));
+        const saga1 = createModuleSaga(module1Def, function* () {
+            const onModifyMsg = createMsgSaga(modifyMessageAction, function* () {
+                yield put(messageChangedEvent({ newMessage: 'world!' }));
             });
 
-            yield takeEvery(msg11Def, onMsg1);
-        });
-
-        const module1 = module1Def.create({ reducer: reducer1, effects: effects1 });
-        const store = createStore({
-            modules: [module1],
+            yield takeEvery(modifyMessageAction, onModifyMsg);
         });
 
         const getModule1State = createModuleSelector(module1Def);
         const getMessage = createSelector(getModule1State, state => state.message);
+
+        const module1 = createModule(module1Def, { reducer: reducer1, saga: saga1 });
+        const store = createStore({
+            modules: [module1],
+        });
 
         let state = store.getReduxStore().getState();
         expect(getMessage(state)).toEqual('hello');
@@ -52,9 +54,9 @@ describe('reduxify', () => {
         // start app
 
         const rootDef = defineModule({ moduleName: 'root' }, withState());
-        const root = rootDef.create({
-            effects: createEffects(rootDef, function* () {
-                yield put(msg11Def({}));
+        const root = createModule(rootDef, {
+            saga: createModuleSaga(rootDef, function* () {
+                yield put(modifyMessageAction({}));
             }),
         });
         store.addModule(root);

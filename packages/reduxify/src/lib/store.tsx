@@ -1,14 +1,15 @@
+import React from 'react';
+import { Provider } from 'react-redux';
 import { createStore as createReduxStore, compose, applyMiddleware, Store, Middleware } from 'redux';
 import createSagaMiddleware, { Task, END } from 'redux-saga';
 import { take as sagaTake } from 'redux-saga/effects';
 
 import isEmpty from 'lodash/isEmpty';
 
-import { AnyQvibiFrontEndModule } from './module';
+import { AnyQvibiFrontEndModule, AnyQvibiFrontEndModuleDef } from './module';
 import { createStoreMiddlwareMngr } from './middlewares';
 import { AnyQvibiMessage } from './message';
 import { combineReducers, IQvibiReducersMap } from './reducer';
-import { call, delay, all } from './effects';
 
 export interface IQvibiStore {
     addMiddlware(middlware: Middleware): void;
@@ -26,17 +27,17 @@ export interface IQvibiStoreOptions {
 export function createStore(options: IQvibiStoreOptions): IQvibiStore {
     const modules = [...options.modules];
 
-    const reducers: IQvibiReducersMap<Record<string, unknown>> = {};
+    const reducers: IQvibiReducersMap<AnyQvibiFrontEndModuleDef> = {};
     const effects: { [moduleName: string]: Task } = {};
 
-    const initialReducers = combineReducers<Record<string, unknown>>({ none: (state = 0) => state });
+    const initialReducers = combineReducers<AnyQvibiFrontEndModuleDef>({ none: (state = 0) => state });
     const initialState: Record<string, unknown> = { none: 0 };
 
     const sagaRuntime = createSagaMiddleware();
     const middlwares = createStoreMiddlwareMngr();
 
     let composeEnhancers = compose;
-    if (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+    if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
         composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ as typeof compose) || compose;
     }
 
@@ -55,8 +56,8 @@ export function createStore(options: IQvibiStoreOptions): IQvibiStore {
 
     // register sagas
     modules.forEach(m => {
-        if (m.effects) {
-            effects[m.moduleName] = sagaRuntime.run(m.effects);
+        if (m.saga) {
+            effects[m.moduleName] = sagaRuntime.run(m.saga);
         }
     });
 
@@ -68,8 +69,8 @@ export function createStore(options: IQvibiStoreOptions): IQvibiStore {
                 store.replaceReducer(combineReducers(reducers));
             }
 
-            if (module.effects) {
-                effects[module.moduleName] = sagaRuntime.run(module.effects);
+            if (module.saga) {
+                effects[module.moduleName] = sagaRuntime.run(module.saga);
             }
         },
         addMiddlware: (middlware: Middleware) => {
@@ -85,4 +86,8 @@ export function createStore(options: IQvibiStoreOptions): IQvibiStore {
             return task.toPromise();
         },
     };
+}
+
+export function withStore(store: IQvibiStore, node: React.ReactNode) {
+    return <Provider store={store.getReduxStore()}>{node}</Provider>;
 }
