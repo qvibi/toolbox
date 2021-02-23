@@ -5,7 +5,7 @@ import {
     createStore,
     createModuleSelector,
     createSelector,
-    defineMsg,
+    defineMsgs,
     withPayload,
     on,
     createModuleSaga,
@@ -19,24 +19,25 @@ describe('reduxify', () => {
     it('should work', async () => {
         const module1Def = defineModule({ moduleName: 'module1' }, withState<{ message: string }>());
 
-        const modifyMsgAction = defineMsg(module1Def, 'modify_message', withPayload());
-        const msgChangedEvent = defineMsg(module1Def, 'message_changed', withPayload<{ newMessage: string }>());
+        const defineMsg = defineMsgs(module1Def);
+        const modifyMessageAction = defineMsg('modify_message', withPayload());
+        const messageChangedEvent = defineMsg('message_changed', withPayload<{ newMessage: string }>());
 
         const reducer1 = createReducer(module1Def, { message: 'hello' }, [
-            on(msgChangedEvent, (state, msg) => {
+            on(messageChangedEvent, (state, payload) => {
                 return {
                     ...state,
-                    message: msg.payload.newMessage,
+                    message: payload.newMessage,
                 };
             }),
         ]);
 
         const saga1 = createModuleSaga(module1Def, function* () {
-            const onModifyMsg = createMsgSaga(modifyMsgAction, function* () {
-                yield put(msgChangedEvent({ newMessage: 'world!' }));
+            const onModifyMsg = createMsgSaga(modifyMessageAction, function* () {
+                yield put(messageChangedEvent({ newMessage: 'world!' }));
             });
 
-            yield takeEvery(modifyMsgAction, onModifyMsg);
+            yield takeEvery(modifyMessageAction, onModifyMsg);
         });
 
         const getModule1State = createModuleSelector(module1Def);
@@ -55,7 +56,7 @@ describe('reduxify', () => {
         const rootDef = defineModule({ moduleName: 'root' }, withState());
         const root = createModule(rootDef, {
             saga: createModuleSaga(rootDef, function* () {
-                yield put(modifyMsgAction({}));
+                yield put(modifyMessageAction({}));
             }),
         });
         store.addModule(root);
