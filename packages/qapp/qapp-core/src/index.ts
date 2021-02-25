@@ -1,4 +1,5 @@
 export * from './lib/effects';
+export * from './lib/jobs';
 export * from './lib/message';
 export * from './lib/module';
 export * from './lib/reducer';
