@@ -4,12 +4,12 @@ import Head from 'next/head';
 import { ReactComponent as NxLogo } from '../public/nx-logo-white.svg';
 import './styles.css';
 
-import { withStore } from '@qvibi-toolbox/reduxify';
-import { store } from '../app/core';
+import { withQApp } from '@qvibi-toolbox/qapp-react';
+import { exampleApp } from '../app/core';
 
 function CustomApp({ Component, pageProps }: AppProps) {
-    return withStore(
-        store,
+    return withQApp(
+        exampleApp,
         <>
             <Head>
                 <title>Welcome to frontend!</title>

@@ -1,4 +1,4 @@
-import { defineMsgs, withPayload } from '@qvibi-toolbox/reduxify';
+import { defineMsgs, withPayload } from '@qvibi-toolbox/qapp';
 
 import { page1ModuleDef } from '../def';
 import { ICatFact } from '../models/cat-fact';

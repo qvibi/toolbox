@@ -1,12 +1,11 @@
-import { createModule } from '@qvibi-toolbox/reduxify';
-import { store } from '../../../core';
+import { createModule } from '@qvibi-toolbox/qapp';
+
+import { exampleApp } from '../../../core';
 
 import { page1ModuleDef } from './def';
-import { reducer } from './store/reducer';
-import { saga } from './store/sagas';
-
-const page1Module = createModule(page1ModuleDef, { reducer: reducer, saga: saga });
+import { reducer } from './logic/reducer';
+import { saga } from './logic/sagas';
 
 export function init() {
-    store.addModule(page1Module);
+    exampleApp.addModule(createModule(page1ModuleDef, { reducer: reducer, saga: saga }));
 }
