@@ -29,12 +29,11 @@ export type ExtractQAppMessage<TMessageDef> = TMessageDef extends Array<infer TI
     ? IQAppMessage<TType, TPayload>
     : never;
 
-function defineMsg<
-    TModuleDef extends AnyQAppModuleDef,
-    TModuleName extends ExtractQAppModuleName<TModuleDef>,
-    TType extends string,
-    TPayload
->(moduleDef: TModuleDef, type: `${TType}`, _payload: TPayload): IQAppMessageCreator<`${TModuleName} ${TType}`, TPayload> {
+function defineMsg<TModuleDef extends AnyQAppModuleDef, TModuleName extends ExtractQAppModuleName<TModuleDef>, TType extends string, TPayload>(
+    moduleDef: TModuleDef,
+    type: `${TType}`,
+    _payload: TPayload,
+): IQAppMessageCreator<`${TModuleName} ${TType}`, TPayload> {
     const finalType = (moduleDef.moduleName + ' ' + type) as `${TModuleName} ${TType}`;
     const msgCreator: IQAppMessageCreator<`${TModuleName} ${TType}`, TPayload> = (payload: TPayload) => ({ type: finalType, payload });
     msgCreator.type = finalType;
@@ -45,7 +44,7 @@ function defineMsg<
     return msgCreator;
 }
 
-export const withPayload = <TPayload = Record<string, never>>(_payload?: TPayload): TPayload => null as never;
+export const withPayload = <TPayload = {}>(): TPayload => null;
 
 export function defineMsgs<TModuleDef extends AnyQAppModuleDef, TModuleName extends ExtractQAppModuleName<TModuleDef>>(
     moduleDef: TModuleDef,

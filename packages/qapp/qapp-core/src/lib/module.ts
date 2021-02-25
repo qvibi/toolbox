@@ -40,9 +40,7 @@ export function defineModule<TModuleName extends `${string}`, TState>(
     };
 }
 
-export interface NoState extends Record<string, never> {}
-
-export function withState<TState = NoState>(_payload?: TState): TState {
+export function withState<TState = {}>(): TState {
     return null;
 }
 

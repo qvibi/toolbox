@@ -4,9 +4,9 @@ export interface IQAppRouteDefOptions<TPath extends string> {
     path: `${TPath}`;
 }
 
-export type IQAppRouteParams = Record<string, string | number | boolean>;
+export type IQAppRouteParams = Record<string, string | number | boolean> | void;
 
-export interface IQAppRouteDef<TPath extends string, _TParams extends IQAppRouteParams = Record<string, never>> {
+export interface IQAppRouteDef<TPath extends string, TParams extends IQAppRouteParams> {
     path: `${TPath}`;
 }
 
