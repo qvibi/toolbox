@@ -21,7 +21,6 @@ import { AnyQvibiMessage, AnyQvibiMessageDef, ExtractQvibiMessage } from './mess
 import { AnyQvibiFrontEndModuleDef } from './module';
 
 type SagaResult<TResult> = Generator<any, TResult, never>;
-type ExtractSagaResult<T> = T extends SagaResult<infer TResult> ? TResult : never;
 type ExtractResult<T> = T extends (...args: any) => infer R ? (R extends SagaResult<infer X> ? X : R extends Promise<infer X> ? X : never) : never;
 
 type QvibiMsgSaga<T extends AnyQvibiMessageDef | AnyQvibiMessageDef[]> = (msg: ExtractQvibiMessage<T>) => SagaResult<void>;

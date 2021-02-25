@@ -1,21 +1,10 @@
 {
     "version": 2,
-    "cli": {
-        "defaultCollection": "@nrwl/react"
-    },
+    "cli": { "defaultCollection": "@nrwl/react" },
     "defaultProject": "frontend",
     "generators": {
-        "@nrwl/react": {
-            "application": {
-                "babel": true
-            }
-        },
-        "@nrwl/next": {
-            "application": {
-                "style": "styled-jsx",
-                "linter": "eslint"
-            }
-        }
+        "@nrwl/react": { "application": { "babel": true } },
+        "@nrwl/next": { "application": { "style": "styled-jsx", "linter": "eslint" } }
     },
     "projects": {
         "reduxify": {
@@ -34,29 +23,15 @@
                         "external": ["react", "react-dom"],
                         "babelConfig": "@nrwl/react/plugins/bundle-babel",
                         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-                        "assets": [
-                            {
-                                "glob": "README.md",
-                                "input": ".",
-                                "output": "."
-                            }
-                        ],
+                        "assets": [{ "glob": "README.md", "input": ".", "output": "." }],
                         "buildableProjectDepsInPackageJsonType": "dependencies"
                     }
                 },
-                "lint": {
-                    "executor": "@nrwl/linter:eslint",
-                    "options": {
-                        "lintFilePatterns": ["packages/reduxify/**/*.{ts,tsx,js,jsx}"]
-                    }
-                },
+                "lint": { "executor": "@nrwl/linter:eslint", "options": { "lintFilePatterns": ["packages/reduxify/**/*.{ts,tsx,js,jsx}"] } },
                 "test": {
                     "executor": "@nrwl/jest:jest",
                     "outputs": ["coverage/packages/reduxify"],
-                    "options": {
-                        "jestConfig": "packages/reduxify/jest.config.js",
-                        "passWithNoTests": true
-                    }
+                    "options": { "jestConfig": "packages/reduxify/jest.config.js", "passWithNoTests": true }
                 }
             }
         },
@@ -65,19 +40,11 @@
             "sourceRoot": "packages/core/src",
             "projectType": "library",
             "targets": {
-                "lint": {
-                    "executor": "@nrwl/linter:eslint",
-                    "options": {
-                        "lintFilePatterns": ["packages/core/**/*.ts"]
-                    }
-                },
+                "lint": { "executor": "@nrwl/linter:eslint", "options": { "lintFilePatterns": ["packages/core/**/*.ts"] } },
                 "test": {
                     "executor": "@nrwl/jest:jest",
                     "outputs": ["coverage/packages/core"],
-                    "options": {
-                        "jestConfig": "packages/core/jest.config.js",
-                        "passWithNoTests": true
-                    }
+                    "options": { "jestConfig": "packages/core/jest.config.js", "passWithNoTests": true }
                 },
                 "build": {
                     "executor": "@nrwl/node:package",
@@ -100,47 +67,21 @@
                 "build": {
                     "executor": "@nrwl/next:build",
                     "outputs": ["{options.outputPath}"],
-                    "options": {
-                        "root": "examples/frontend",
-                        "outputPath": "dist/examples/frontend"
-                    },
-                    "configurations": {
-                        "production": {}
-                    }
+                    "options": { "root": "examples/frontend", "outputPath": "dist/examples/frontend" },
+                    "configurations": { "production": {} }
                 },
                 "serve": {
                     "executor": "@nrwl/next:server",
-                    "options": {
-                        "buildTarget": "frontend:build",
-                        "dev": true
-                    },
-                    "configurations": {
-                        "production": {
-                            "buildTarget": "frontend:build:production",
-                            "dev": false
-                        }
-                    }
+                    "options": { "buildTarget": "frontend:build", "dev": true },
+                    "configurations": { "production": { "buildTarget": "frontend:build:production", "dev": false } }
                 },
-                "export": {
-                    "executor": "@nrwl/next:export",
-                    "options": {
-                        "buildTarget": "frontend:build:production"
-                    }
-                },
+                "export": { "executor": "@nrwl/next:export", "options": { "buildTarget": "frontend:build:production" } },
                 "test": {
                     "executor": "@nrwl/jest:jest",
                     "outputs": ["coverage/examples/frontend"],
-                    "options": {
-                        "jestConfig": "examples/frontend/jest.config.js",
-                        "passWithNoTests": true
-                    }
+                    "options": { "jestConfig": "examples/frontend/jest.config.js", "passWithNoTests": true }
                 },
-                "lint": {
-                    "executor": "@nrwl/linter:eslint",
-                    "options": {
-                        "lintFilePatterns": ["examples/frontend/**/*.{ts,tsx,js,jsx}"]
-                    }
-                }
+                "lint": { "executor": "@nrwl/linter:eslint", "options": { "lintFilePatterns": ["examples/frontend/**/*.{ts,tsx,js,jsx}"] } }
             }
         },
         "frontend-e2e": {
@@ -155,17 +96,36 @@
                         "tsConfig": "examples/frontend-e2e/tsconfig.e2e.json",
                         "devServerTarget": "frontend:serve"
                     },
-                    "configurations": {
-                        "production": {
-                            "devServerTarget": "frontend:serve:production"
-                        }
+                    "configurations": { "production": { "devServerTarget": "frontend:serve:production" } }
+                },
+                "lint": { "executor": "@nrwl/linter:eslint", "options": { "lintFilePatterns": ["examples/frontend-e2e/**/*.{js,ts}"] } }
+            }
+        },
+        "qapp-qapp-core": {
+            "root": "packages/qapp/qapp-core",
+            "sourceRoot": "packages/qapp/qapp-core/src",
+            "projectType": "library",
+            "targets": {
+                "build": {
+                    "executor": "@nrwl/web:package",
+                    "outputs": ["{options.outputPath}"],
+                    "options": {
+                        "outputPath": "dist/packages/qapp/qapp-core",
+                        "tsConfig": "packages/qapp/qapp-core/tsconfig.lib.json",
+                        "project": "packages/qapp/qapp-core/package.json",
+                        "entryFile": "packages/qapp/qapp-core/src/index.ts",
+                        "external": ["redux-saga/effects"],
+                        "babelConfig": "@nrwl/react/plugins/bundle-babel",
+                        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+                        "assets": [{ "glob": "README.md", "input": ".", "output": "." }],
+                        "buildableProjectDepsInPackageJsonType": "dependencies"
                     }
                 },
-                "lint": {
-                    "executor": "@nrwl/linter:eslint",
-                    "options": {
-                        "lintFilePatterns": ["examples/frontend-e2e/**/*.{js,ts}"]
-                    }
+                "lint": { "executor": "@nrwl/linter:eslint", "options": { "lintFilePatterns": ["packages/qapp/qapp-core/**/*.{ts,tsx,js,jsx}"] } },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/packages/qapp/qapp-core"],
+                    "options": { "jestConfig": "packages/qapp/qapp-core/jest.config.js", "passWithNoTests": true }
                 }
             }
         }
