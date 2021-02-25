@@ -1,5 +1,5 @@
-import { createStore } from '@qvibi-toolbox/reduxify';
+import { createQApp } from '@qvibi-toolbox/qapp';
 
-const store = createStore({ modules: [] });
+const exampleApp = createQApp({ modules: [] });
 
-export { store };
+export { exampleApp };

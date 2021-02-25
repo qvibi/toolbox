@@ -17,4 +17,5 @@ jobs:
       - run: npm run build core
       - run: npm run build reduxify
       - run: npm run build qapp-qapp-core
+      - run: npm run build qapp-qapp-react
       

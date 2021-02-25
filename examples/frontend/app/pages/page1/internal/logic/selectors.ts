@@ -1,4 +1,4 @@
-import { createModuleSelector, createSelector } from '@qvibi-toolbox/reduxify';
+import { createModuleSelector, createSelector } from '@qvibi-toolbox/qapp';
 
 import { page1ModuleDef } from '../def';
 

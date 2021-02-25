@@ -17,6 +17,7 @@ jobs:
       - run: npm run build core
       - run: npm run build reduxify
       - run: npm run build qapp-qapp-core
+      - run: npm run build qapp-qapp-react
       - uses: actions/setup-node@v1
         with:
           registry-url: "https://registry.npmjs.org"
@@ -27,6 +28,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm publish ./dist/packages/qapp/qapp-core --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish ./dist/packages/qapp/qapp-react --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       

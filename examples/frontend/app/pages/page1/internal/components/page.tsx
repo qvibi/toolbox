@@ -1,9 +1,13 @@
 import React from 'react';
 
-import { useSelector, useDispatch } from '@qvibi-toolbox/reduxify';
+import Link from 'next/link';
 
-import { getIsLoading, getFacts } from '../store/selectors';
-import { loadCatFactsAction } from '../store/actions';
+import { useSelector, useDispatch } from '@qvibi-toolbox/qapp-react';
+
+import { getIsLoading, getFacts } from '../logic/selectors';
+import { loadCatFactsAction } from '../logic/actions';
+import { generatePath } from '@qvibi-toolbox/qapp';
+import { page2RouteDef } from '../../../page2';
 
 interface IProps {}
 
@@ -26,6 +30,9 @@ export const Page1 = React.memo<IProps>(props => {
                     </div>
                 );
             })}
+            <div>
+                Navigate to <Link href={generatePath(page2RouteDef, {})}>Page 2</Link>
+            </div>
         </div>
     );
 });

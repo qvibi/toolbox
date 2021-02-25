@@ -1,4 +1,4 @@
-import { call, createModuleSaga, createMsgSaga, ExtractResult, put, takeEvery } from '@qvibi-toolbox/reduxify';
+import { call, createModuleSaga, createMsgSaga, QAppExtractResult, put, takeEvery } from '@qvibi-toolbox/qapp';
 
 import { page1ModuleDef } from '../def';
 import { mapCatFactFromDto } from '../models/mappers';
@@ -9,7 +9,7 @@ const onLoadCatFacts = createMsgSaga(loadCatFactsAction, function* (msg) {
     try {
         yield put(loadCatFactsBeganEvent({}));
 
-        const factsDto: ExtractResult<typeof getCatFacts> = yield call(getCatFacts);
+        const factsDto: QAppExtractResult<typeof getCatFacts> = yield call(getCatFacts);
 
         yield put(loadCatFactsDoneEvent({ facts: factsDto.map(mapCatFactFromDto) }));
     } catch {

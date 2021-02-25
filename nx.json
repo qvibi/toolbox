@@ -18,6 +18,7 @@
         "core": { "tags": [] },
         "frontend": { "tags": [] },
         "frontend-e2e": { "tags": [], "implicitDependencies": ["frontend"] },
-        "qapp-qapp-core": { "tags": [] }
+        "qapp-qapp-core": { "tags": [] },
+        "qapp-qapp-react": { "tags": [] }
     }
 }

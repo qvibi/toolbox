@@ -128,6 +128,34 @@
                     "options": { "jestConfig": "packages/qapp/qapp-core/jest.config.js", "passWithNoTests": true }
                 }
             }
+        },
+        "qapp-qapp-react": {
+            "root": "packages/qapp/qapp-react",
+            "sourceRoot": "packages/qapp/qapp-react/src",
+            "projectType": "library",
+            "targets": {
+                "build": {
+                    "executor": "@nrwl/web:package",
+                    "outputs": ["{options.outputPath}"],
+                    "options": {
+                        "outputPath": "dist/packages/qapp/qapp-react",
+                        "tsConfig": "packages/qapp/qapp-react/tsconfig.lib.json",
+                        "project": "packages/qapp/qapp-react/package.json",
+                        "entryFile": "packages/qapp/qapp-react/src/index.ts",
+                        "external": [],
+                        "babelConfig": "@nrwl/react/plugins/bundle-babel",
+                        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+                        "assets": [{ "glob": "README.md", "input": ".", "output": "." }],
+                        "buildableProjectDepsInPackageJsonType": "dependencies"
+                    }
+                },
+                "lint": { "executor": "@nrwl/linter:eslint", "options": { "lintFilePatterns": ["packages/qapp/qapp-react/**/*.{ts,tsx,js,jsx}"] } },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/packages/qapp/qapp-react"],
+                    "options": { "jestConfig": "packages/qapp/qapp-react/jest.config.js", "passWithNoTests": true }
+                }
+            }
         }
     }
 }
