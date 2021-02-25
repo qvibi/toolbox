@@ -2,8 +2,6 @@ import { createStore as createReduxStore, compose, applyMiddleware, Store, Middl
 import createSagaMiddleware, { Task, END } from 'redux-saga';
 import { take as sagaTake } from 'redux-saga/effects';
 
-import isEmpty from 'lodash/isEmpty';
-
 import { AnyQAppModule, AnyQAppModuleDef } from './module';
 import { createStoreMiddlwareMngr } from './middlewares';
 import { AnyQAppMessage } from './message';
@@ -48,7 +46,7 @@ export function createQApp(options: IQAppStoreOptions): IQApp {
         }
     });
 
-    if (!isEmpty(reducers)) {
+    if (Object.keys(reducers).length !== 0) {
         store.replaceReducer(combineReducers(reducers));
     }
 

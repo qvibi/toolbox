@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
 import { IQvibiModule } from '@qvibi-toolbox/core';
+
 import { IQAppReducer } from './reducer';
 import { IQAppModuleSaga } from './saga';
 

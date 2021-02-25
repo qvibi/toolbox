@@ -106,6 +106,21 @@
             "sourceRoot": "packages/qapp/qapp-core/src",
             "projectType": "library",
             "targets": {
+                "build": {
+                    "executor": "@nrwl/web:package",
+                    "outputs": ["{options.outputPath}"],
+                    "options": {
+                        "outputPath": "dist/packages/qapp/qapp-core",
+                        "tsConfig": "packages/qapp/qapp-core/tsconfig.lib.json",
+                        "project": "packages/qapp/qapp-core/package.json",
+                        "entryFile": "packages/qapp/qapp-core/src/index.ts",
+                        "external": ["redux-saga/effects"],
+                        "babelConfig": "@nrwl/react/plugins/bundle-babel",
+                        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+                        "assets": [{ "glob": "README.md", "input": ".", "output": "." }],
+                        "buildableProjectDepsInPackageJsonType": "dependencies"
+                    }
+                },
                 "lint": { "executor": "@nrwl/linter:eslint", "options": { "lintFilePatterns": ["packages/qapp/qapp-core/**/*.{ts,tsx,js,jsx}"] } },
                 "test": {
                     "executor": "@nrwl/jest:jest",

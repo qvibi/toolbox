@@ -1,7 +1,7 @@
 import { createModule, defineModule, withState } from './module';
 import { createModuleReducer } from './reducer';
 import { createQApp } from './store';
-import { createModuleSelector, createSelector } from './selectors';
+import { createModuleSelector, createSelector } from './selector';
 
 describe('store', () => {
     it('should work', () => {

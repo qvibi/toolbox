@@ -1,8 +1,9 @@
 import {
+    createQApp,
     defineModule,
     withState,
+    createModule,
     createModuleReducer,
-    createQApp,
     createModuleSelector,
     createSelector,
     defineMsgs,
@@ -13,7 +14,6 @@ import {
     put,
     takeEvery,
 } from './index';
-import { createModule } from './lib/module';
 
 describe('reduxify', () => {
     it('should work', async () => {

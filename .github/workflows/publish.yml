@@ -25,4 +25,7 @@ jobs:
       - run: npm publish ./dist/packages/reduxify --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish ./dist/packages/qapp/qapp-core --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
