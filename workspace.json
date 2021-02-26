@@ -117,8 +117,7 @@
                         "external": ["redux-saga/effects"],
                         "babelConfig": "@nrwl/react/plugins/bundle-babel",
                         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-                        "assets": [{ "glob": "README.md", "input": ".", "output": "." }],
-                        "buildableProjectDepsInPackageJsonType": "dependencies"
+                        "assets": [{ "glob": "README.md", "input": ".", "output": "." }]
                     }
                 },
                 "lint": { "executor": "@nrwl/linter:eslint", "options": { "lintFilePatterns": ["packages/qapp/qapp-core/**/*.{ts,tsx,js,jsx}"] } },
@@ -145,8 +144,7 @@
                         "external": [],
                         "babelConfig": "@nrwl/react/plugins/bundle-babel",
                         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-                        "assets": [{ "glob": "README.md", "input": ".", "output": "." }],
-                        "buildableProjectDepsInPackageJsonType": "dependencies"
+                        "assets": [{ "glob": "README.md", "input": ".", "output": "." }]
                     }
                 },
                 "lint": { "executor": "@nrwl/linter:eslint", "options": { "lintFilePatterns": ["packages/qapp/qapp-react/**/*.{ts,tsx,js,jsx}"] } },
