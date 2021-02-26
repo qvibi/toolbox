@@ -17,6 +17,7 @@ import {
 } from 'redux-saga/effects';
 
 import { AnyQAppMessage, AnyQAppMessageDef, ExtractQAppMessage } from './message';
+import { AnyQAppModuleDef } from './module';
 import { IQAppMsgSaga, IQAppSagaResult } from './saga';
 
 function defToPattern(msgDef: AnyQAppMessageDef | AnyQAppMessageDef[]): string | string[] {
@@ -33,21 +34,21 @@ function take(msgDef: AnyQAppMessageDef | AnyQAppMessageDef[]): unknown {
     return sagaTake(defToPattern(msgDef));
 }
 
-function takeEvery<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<T>): ForkEffect<never>;
-function takeEvery<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<T>): ForkEffect<never>;
-function takeEvery<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(msgDef: T, worker: IQAppMsgSaga<T>): ForkEffect<never> {
+function takeEvery<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
+function takeEvery<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
+function takeEvery<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never> {
     return sagaTakeEvery(defToPattern(msgDef), worker);
 }
 
-function takeLatest<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<T>): ForkEffect<never>;
-function takeLatest<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<T>): ForkEffect<never>;
-function takeLatest<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(msgDef: T, worker: IQAppMsgSaga<T>): ForkEffect<never> {
+function takeLatest<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
+function takeLatest<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
+function takeLatest<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never> {
     return sagaTakeLatest(defToPattern(msgDef), worker);
 }
 
-function takeLeading<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<T>): ForkEffect<never>;
-function takeLeading<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<T>): ForkEffect<never>;
-function takeLeading<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(msgDef: T, worker: IQAppMsgSaga<T>): ForkEffect<never> {
+function takeLeading<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
+function takeLeading<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
+function takeLeading<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never> {
     return sagaTakeLeading(defToPattern(msgDef), worker);
 }
 

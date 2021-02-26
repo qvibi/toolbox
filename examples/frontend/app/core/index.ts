@@ -1,5 +1,6 @@
-import { createQApp } from '@qvibi-toolbox/qapp';
+import './internal/init';
 
-const exampleApp = createQApp({ modules: [] });
-
-export { exampleApp };
+export { QAPP } from './internal/qapp';
+export { getIsAppReady } from './internal/logic/selectors';
+export { initializeAppMsg, appReadyMsg } from './internal/logic/messages';
+export { initializationJobGroup } from './internal/logic/jobs';

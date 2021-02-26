@@ -1,9 +1,7 @@
 import { createModule } from '@qvibi-toolbox/qapp';
 
-import { exampleApp } from '../../../../app/core';
+import { QAPP } from '../../../../app/core';
 
-import { page2Def } from './def';
+import { PAGE2_MODULE_DEF } from './def';
 
-export function init() {
-    exampleApp.addModule(createModule(page2Def, {}));
-}
+QAPP.addModule(createModule(PAGE2_MODULE_DEF, {}));

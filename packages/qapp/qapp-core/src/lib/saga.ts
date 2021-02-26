@@ -10,15 +10,47 @@ export type QAppExtractResult<T> = T extends (...args: any) => infer R
         : never
     : never;
 
-export type IQAppMsgSaga<T extends AnyQAppMessageDef | AnyQAppMessageDef[]> = (msg: ExtractQAppMessage<T>) => IQAppSagaResult<void>;
-export type IQAppModuleSaga<_T extends AnyQAppModuleDef> = () => IQAppSagaResult<void>;
+export type IQAppMsgSaga<TModuleDef extends AnyQAppModuleDef, TMsg extends AnyQAppMessageDef | AnyQAppMessageDef[]> = (
+    payload: ExtractQAppMessage<TMsg>['payload'],
+    msg: ExtractQAppMessage<TMsg>,
+) => IQAppSagaResult<void>;
+export type IQAppModuleSaga<TModuleDef extends AnyQAppModuleDef> = () => IQAppSagaResult<void>;
 
-export function createMsgSaga<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<T>): IQAppMsgSaga<T>;
-export function createMsgSaga<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<T>): IQAppMsgSaga<T>;
-export function createMsgSaga<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(_msgDef: T, worker: IQAppMsgSaga<T>): IQAppMsgSaga<T> {
+export function createMsgSaga<TModuleDef extends AnyQAppModuleDef, TMsg extends AnyQAppMessageDef>(
+    moduleDef: TModuleDef,
+    msgDef: TMsg,
+    worker: IQAppMsgSaga<TModuleDef, TMsg>,
+): IQAppMsgSaga<TModuleDef, TMsg>;
+export function createMsgSaga<TModuleDef extends AnyQAppModuleDef, TMsgs extends AnyQAppMessageDef[]>(
+    moduleDef: TModuleDef,
+    msgDefs: TMsgs,
+    worker: IQAppMsgSaga<TModuleDef, TMsgs>,
+): IQAppMsgSaga<TModuleDef, TMsgs>;
+export function createMsgSaga<TModuleDef extends AnyQAppModuleDef, T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(
+    moduleDef: TModuleDef,
+    _msgDef: T,
+    worker: IQAppMsgSaga<TModuleDef, T>,
+): IQAppMsgSaga<TModuleDef, T> {
     return worker;
 }
 
-export function createModuleSaga<T extends AnyQAppModuleDef>(moduleDef: T, worker: IQAppModuleSaga<T>): IQAppModuleSaga<T> {
+export function createModuleSaga<TModuleDef extends AnyQAppModuleDef>(
+    moduleDef: TModuleDef,
+    worker: IQAppModuleSaga<TModuleDef>,
+): IQAppModuleSaga<TModuleDef> {
     return worker;
+}
+
+export function getCreateMsgSagaTool<TModuleDef extends AnyQAppModuleDef>(moduleDef: TModuleDef) {
+    function create<TMsg extends AnyQAppMessageDef>(msgDef: TMsg, worker: IQAppMsgSaga<TModuleDef, TMsg>): IQAppMsgSaga<TModuleDef, TMsg>;
+    function create<TMsgs extends AnyQAppMessageDef[]>(msgDefs: TMsgs, worker: IQAppMsgSaga<TModuleDef, TMsgs>): IQAppMsgSaga<TModuleDef, TMsgs>;
+    function create<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(_msgDef: T, worker: IQAppMsgSaga<TModuleDef, T>): IQAppMsgSaga<TModuleDef, T> {
+        return worker;
+    }
+
+    return create;
+}
+
+export function getCreateModuleSagaTool<TModuleDef extends AnyQAppModuleDef>(moduleDef: TModuleDef) {
+    return (worker: IQAppModuleSaga<TModuleDef>) => createModuleSaga(moduleDef, worker);
 }

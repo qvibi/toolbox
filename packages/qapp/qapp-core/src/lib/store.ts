@@ -11,7 +11,7 @@ export interface IQApp {
     addMiddlware(middlware: Middleware): void;
     addModule(module: AnyQAppModule): void;
 
-    getReduxStore(): Store<Record<string, unknown>, AnyQAppMessage>;
+    getReduxStore(): Store<Record<string, any>, AnyQAppMessage>;
 
     complete(): Promise<void>;
 }
@@ -27,7 +27,7 @@ export function createQApp(options: IQAppStoreOptions): IQApp {
     const effects: { [moduleName: string]: Task } = {};
 
     const initialReducers = combineReducers<AnyQAppModuleDef>({ none: (state = 0) => state });
-    const initialState: Record<string, unknown> = { none: 0 };
+    const initialState: Record<string, any> = { none: 0 };
 
     const sagaRuntime = createSagaMiddleware();
     const middlwares = createStoreMiddlwareMngr();
