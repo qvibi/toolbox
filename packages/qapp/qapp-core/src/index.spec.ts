@@ -1,29 +1,16 @@
-import {
-    createQApp,
-    defineModule,
-    withState,
-    createModule,
-    createModuleReducer,
-    createModuleSelector,
-    createSelector,
-    defineMsgs,
-    withPayload,
-    on,
-    createModuleSaga,
-    createMsgSaga,
-    put,
-    takeEvery,
-} from './index';
+import { createQApp, defineModule, withState, createModule, createSelector, withPayload, on, put, takeEvery } from './index';
+import { getModuleTools } from './lib/tools';
 
 describe('reduxify', () => {
     it('should work', async () => {
         const module1Def = defineModule({ moduleName: 'module1' }, withState<{ message: string }>());
 
-        const defineMsg = defineMsgs(module1Def);
+        const { defineMsg, createReducer, createSaga, createMsgSaga, getState } = getModuleTools(module1Def);
+
         const modifyMessageAction = defineMsg('modify_message', withPayload());
         const messageChangedEvent = defineMsg('message_changed', withPayload<{ newMessage: string }>());
 
-        const reducer1 = createModuleReducer(module1Def, { message: 'hello' }, [
+        const reducer1 = createReducer({ message: 'hello' }, [
             on(messageChangedEvent, (state, payload) => {
                 return {
                     ...state,
@@ -32,7 +19,7 @@ describe('reduxify', () => {
             }),
         ]);
 
-        const saga1 = createModuleSaga(module1Def, function* () {
+        const saga1 = createSaga(function* () {
             const onModifyMsg = createMsgSaga(modifyMessageAction, function* () {
                 yield put(messageChangedEvent({ newMessage: 'world!' }));
             });
@@ -40,8 +27,7 @@ describe('reduxify', () => {
             yield takeEvery(modifyMessageAction, onModifyMsg);
         });
 
-        const getModule1State = createModuleSelector(module1Def);
-        const getMessage = createSelector(getModule1State, state => state.message);
+        const getMessage = createSelector(getState, state => state.message);
 
         const module1 = createModule(module1Def, { reducer: reducer1, saga: saga1 });
         const store = createQApp({
@@ -54,8 +40,9 @@ describe('reduxify', () => {
         // start app
 
         const rootDef = defineModule({ moduleName: 'root' }, withState());
+        const rootTools = getModuleTools(rootDef);
         const root = createModule(rootDef, {
-            saga: createModuleSaga(rootDef, function* () {
+            saga: rootTools.createSaga(function* () {
                 yield put(modifyMessageAction({}));
             }),
         });
