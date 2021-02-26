@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
-import { IQvibiModule } from '@qvibi-toolbox/core';
-
 import { IQAppReducer } from './reducer';
 import { IQAppModuleSaga } from './saga';
 
-export interface IQAppModule<TModuleDef extends AnyQAppModuleDef> extends IQvibiModule<ExtractQAppModuleName<TModuleDef>> {
+export interface IQAppModule<TModuleDef extends AnyQAppModuleDef> {
+    moduleName: ExtractQAppModuleName<TModuleDef>;
     reducer: IQAppReducer<TModuleDef> | null;
     saga: IQAppModuleSaga<TModuleDef> | null;
 }
