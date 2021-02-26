@@ -37,19 +37,25 @@ function take(msgDef: AnyQAppMessageDef | AnyQAppMessageDef[]): unknown {
 function takeEvery<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
 function takeEvery<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
 function takeEvery<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never> {
-    return sagaTakeEvery(defToPattern(msgDef), worker);
+    return sagaTakeEvery(defToPattern(msgDef), function (msg: ExtractQAppMessage<T>) {
+        return worker(msg.payload, msg);
+    });
 }
 
 function takeLatest<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
 function takeLatest<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
 function takeLatest<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never> {
-    return sagaTakeLatest(defToPattern(msgDef), worker);
+    return sagaTakeLatest(defToPattern(msgDef), function (msg: ExtractQAppMessage<T>) {
+        return worker(msg.payload, msg);
+    });
 }
 
 function takeLeading<T extends AnyQAppMessageDef>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
 function takeLeading<T extends AnyQAppMessageDef[]>(msgDefs: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never>;
 function takeLeading<T extends AnyQAppMessageDef | AnyQAppMessageDef[]>(msgDef: T, worker: IQAppMsgSaga<AnyQAppModuleDef, T>): ForkEffect<never> {
-    return sagaTakeLeading(defToPattern(msgDef), worker);
+    return sagaTakeLeading(defToPattern(msgDef), function (msg: ExtractQAppMessage<T>) {
+        return worker(msg.payload, msg);
+    });
 }
 
 function put(msg: AnyQAppMessage): PutEffect<AnyQAppMessage> {
