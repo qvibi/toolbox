@@ -7,3 +7,4 @@ export * from './lib/routing';
 export * from './lib/saga';
 export * from './lib/selector';
 export * from './lib/store';
+export * from './lib/tools';

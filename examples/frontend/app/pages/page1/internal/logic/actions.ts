@@ -1,9 +1,9 @@
-import { defineMsgs, withPayload } from '@qvibi-toolbox/qapp';
+import { getModuleTools, withPayload } from '@qvibi-toolbox/qapp';
 
 import { PAGE1_MODULE_DEF } from '../def';
 import { ICatFact } from '../models/cat-fact';
 
-const defineMsg = defineMsgs(PAGE1_MODULE_DEF);
+const { defineMsg } = getModuleTools(PAGE1_MODULE_DEF);
 
 export const loadCatFactsAction = defineMsg('load_cat_facts', withPayload());
 export const loadCatFactsBeganEvent = defineMsg('load_cat_facts_began', withPayload());

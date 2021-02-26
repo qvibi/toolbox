@@ -1,4 +1,6 @@
-import { createJob, createJobGroup } from '@qvibi-toolbox/qapp';
+import { getModuleTools } from '@qvibi-toolbox/qapp';
 import { CORE_MODULE_DEF } from '../def';
 
-export const initializationJobGroup = createJobGroup(CORE_MODULE_DEF, { jobGroupName: 'initialization' });
+const { createJobGroup } = getModuleTools(CORE_MODULE_DEF);
+
+export const initializationJobGroup = createJobGroup({ jobGroupName: 'initialization' });

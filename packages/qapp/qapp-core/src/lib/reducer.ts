@@ -24,9 +24,9 @@ export type ExtractQAppReducerState<TReducer> = TReducer extends IQAppReducer<in
 
 // type Exact<T, U> = T extends U ? (Exclude<keyof T, keyof U> extends never ? T : never) : never;
 
-export function createModuleReducer<TModuleDef extends AnyQAppModuleDef, TState extends ExtractQAppModuleState<TModuleDef>>(
+export function createModuleReducer<TModuleDef extends AnyQAppModuleDef>(
     moduleDef: TModuleDef,
-    initialState: TState,
+    initialState: ExtractQAppModuleState<TModuleDef>,
     mutators: IQAppReducerMutator<TModuleDef, AnyQAppMessageDef>[],
 ): IQAppReducer<TModuleDef> {
     const map = mutators.reduce((acc: { [msgType: string]: IQAppReducerMutator<TModuleDef, AnyQAppMessageDef> }, h) => {
@@ -39,7 +39,7 @@ export function createModuleReducer<TModuleDef extends AnyQAppModuleDef, TState 
         return acc;
     }, {});
 
-    return (state = initialState, msg: AnyQAppMessage): TState => {
+    return (state = initialState, msg: AnyQAppMessage): ExtractQAppModuleState<TModuleDef> => {
         if (map[msg.type]) {
             return map[msg.type].mutate(state, msg.payload, msg);
         } else {
@@ -66,4 +66,9 @@ export function on<
         msgDef,
         mutate,
     };
+}
+
+export function getCreateModuleReducerTool<TModuleDef extends AnyQAppModuleDef>(moduleDef: TModuleDef) {
+    return (initialState: ExtractQAppModuleState<TModuleDef>, mutators: IQAppReducerMutator<TModuleDef, AnyQAppMessageDef>[]) =>
+        createModuleReducer(moduleDef, initialState, mutators);
 }

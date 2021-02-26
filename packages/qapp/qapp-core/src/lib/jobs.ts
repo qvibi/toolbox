@@ -1,10 +1,11 @@
-import { defineMsgs, withPayload } from './message';
+import { withPayload } from './message';
 import { all, put, call, cancelled } from './effects';
 import { AnyQAppModuleDef, ExtractQAppModuleName } from './module';
 
 import { IQAppSagaResult } from './saga';
+import { getModuleTools } from './tools';
 
-interface IQAppJobGroupOptions<TJobGroupName> {
+export interface IQAppJobGroupOptions<TJobGroupName> {
     jobGroupName: TJobGroupName;
 }
 
@@ -26,28 +27,26 @@ export interface IQAppJob<_TJobGroupName> {
 
 type QAppJobGroupMsgType<TJobGroupName extends string, TJobProgress extends string> = `${Lowercase<`job-group:${TJobGroupName} ${TJobProgress}`>}`;
 
-export function createJobGroup<
-    TModuleDef extends AnyQAppModuleDef,
-    TModuleName extends ExtractQAppModuleName<TModuleDef>,
-    TJobGroupName extends string,
-    _TCoordinatorState = Record<string, unknown>
->(moduleDef: TModuleDef, options: IQAppJobGroupOptions<TJobGroupName>): IQAppJobGroup<`${TModuleName} job-group:${TJobGroupName}`> {
-    const defineMsg = defineMsgs(moduleDef);
+export function createJobGroup<TModuleDef extends AnyQAppModuleDef, TJobGroupName extends string>(
+    moduleDef: TModuleDef,
+    options: IQAppJobGroupOptions<TJobGroupName>,
+): IQAppJobGroup<`${ExtractQAppModuleName<TModuleDef>} job-group:${TJobGroupName}`> {
+    const { defineMsg } = getModuleTools(moduleDef);
 
-    const defineCoordinatorMsg = <TJobProgress extends string>(jobProgress: `${TJobProgress}`) => {
+    const defineCoordinatorMsg = <TJobProgress extends string, TPayload>(jobProgress: `${TJobProgress}`, payload: TPayload) => {
         const type = `job-group:${options.jobGroupName} ${jobProgress}` as QAppJobGroupMsgType<TJobGroupName, TJobProgress>;
-        return defineMsg(type, withPayload());
+        return defineMsg(type, payload);
     };
 
-    const beganMsg = defineCoordinatorMsg('began');
-    const doneMsg = defineCoordinatorMsg('done');
-    const failedMsg = defineCoordinatorMsg('failed');
-    const cancelledMsg = defineCoordinatorMsg('cancelled');
+    const beganMsg = defineCoordinatorMsg('began', withPayload());
+    const doneMsg = defineCoordinatorMsg('done', withPayload());
+    const failedMsg = defineCoordinatorMsg('failed', withPayload());
+    const cancelledMsg = defineCoordinatorMsg('cancelled', withPayload());
 
-    const jobBeganMsg = defineCoordinatorMsg('job_began');
-    const jobDoneMsg = defineCoordinatorMsg('job_done');
-    const jobFailedMsg = defineCoordinatorMsg('job_failed');
-    const jobCancelledMsg = defineCoordinatorMsg('job_cancelled');
+    const jobBeganMsg = defineCoordinatorMsg('job_began', withPayload<{ jobName: string }>());
+    const jobDoneMsg = defineCoordinatorMsg('job_done', withPayload<{ jobName: string }>());
+    const jobFailedMsg = defineCoordinatorMsg('job_failed', withPayload<{ jobName: string }>());
+    const jobCancelledMsg = defineCoordinatorMsg('job_cancelled', withPayload<{ jobName: string }>());
 
     const jobs: IQAppJob<TJobGroupName>[] = [];
 
@@ -58,16 +57,16 @@ export function createJobGroup<
                 jobs.map(job => {
                     return call(function* () {
                         try {
-                            yield put(jobBeganMsg({}));
+                            yield put(jobBeganMsg({ jobName: job.jobName }));
                             yield job.worker();
-                            yield put(jobDoneMsg({}));
+                            yield put(jobDoneMsg({ jobName: job.jobName }));
 
                             return true;
                         } catch {
-                            yield put(jobFailedMsg({}));
+                            yield put(jobFailedMsg({ jobName: job.jobName }));
                         } finally {
                             if (yield cancelled()) {
-                                yield put(jobCancelledMsg({}));
+                                yield put(jobCancelledMsg({ jobName: job.jobName }));
                             }
                         }
 
@@ -93,7 +92,7 @@ export function createJobGroup<
     };
 
     return {
-        jobGroupName: `${moduleDef.moduleName} job-group:${options.jobGroupName}` as `${TModuleName} job-group:${TJobGroupName}`,
+        jobGroupName: `${moduleDef.moduleName} job-group:${options.jobGroupName}` as `${ExtractQAppModuleName<TModuleDef>} job-group:${TJobGroupName}`,
         execute,
         addJob: job => {
             jobs.push(job);
@@ -104,19 +103,32 @@ export function createJobGroup<
     };
 }
 
-export function createJobs<TModuleDef extends AnyQAppModuleDef>(moduleDef: TModuleDef) {
-    return <TJobGroup extends IQAppJobGroup<any>, TJobName extends string>(
-        jobGroup: TJobGroup,
-        jobName: TJobName,
-        worker: () => IQAppSagaResult<void>,
-    ): IQAppJob<`${ExtractQAppJobGroupName<TJobGroup>} | ${ExtractQAppModuleName<TModuleDef>} ${TJobName}`> => {
-        return {
-            jobName: `${jobGroup.jobGroupName} | ${moduleDef.moduleName} ${jobName}` as `${ExtractQAppJobGroupName<TJobGroup>} | ${ExtractQAppModuleName<TModuleDef>} ${TJobName}`,
-            worker,
-        };
+export function createJob<TModuleDef extends AnyQAppModuleDef, TJobGroup extends IQAppJobGroup<any>, TJobName extends string>(
+    moduleDef: TModuleDef,
+    jobGroup: TJobGroup,
+    jobName: TJobName,
+    worker: () => IQAppSagaResult<void>,
+): IQAppJob<`${ExtractQAppJobGroupName<TJobGroup>} | ${ExtractQAppModuleName<TModuleDef>} ${TJobName}`> {
+    return {
+        jobName: `${jobGroup.jobGroupName} | ${moduleDef.moduleName} ${jobName}` as `${ExtractQAppJobGroupName<TJobGroup>} | ${ExtractQAppModuleName<TModuleDef>} ${TJobName}`,
+        worker,
     };
 }
 
 export function runJobGroup<TJobGroupName>(jobGroup: IQAppJobGroup<TJobGroupName>) {
     return call(jobGroup.execute);
+}
+
+export function getCreateJobGroupTool<TModuleDef extends AnyQAppModuleDef>(moduleDef: TModuleDef) {
+    return <TJobGroupName extends string>(options: IQAppJobGroupOptions<TJobGroupName>) => {
+        return createJobGroup(moduleDef, options);
+    };
+}
+
+export function getCreateJobTool<TModuleDef extends AnyQAppModuleDef>(moduleDef: TModuleDef) {
+    return <TJobGroup extends IQAppJobGroup<any>, TJobName extends string>(
+        jobGroup: TJobGroup,
+        jobName: TJobName,
+        worker: () => IQAppSagaResult<void>,
+    ) => createJob(moduleDef, jobGroup, jobName, worker);
 }

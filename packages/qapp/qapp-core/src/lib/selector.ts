@@ -2,10 +2,10 @@ import { createSelector } from 'reselect';
 
 import { AnyQAppModuleDef, ExtractQAppModuleState } from './module';
 
-export function createModuleSelector<TModuleDef extends AnyQAppModuleDef, TState extends ExtractQAppModuleState<TModuleDef>>(
-    moduleDef: TModuleDef,
-): (store: Record<string, any>) => TState {
-    return store => store[moduleDef.moduleName] as TState;
-}
-
 export { createSelector };
+
+export function createModuleSelector<TModuleDef extends AnyQAppModuleDef>(
+    moduleDef: TModuleDef,
+): (store: Record<string, any>) => ExtractQAppModuleState<TModuleDef> {
+    return store => store[moduleDef.moduleName] as ExtractQAppModuleState<TModuleDef>;
+}
