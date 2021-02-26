@@ -14,8 +14,6 @@
     },
     "workspaceLayout": { "appsDir": "examples", "libsDir": "packages" },
     "projects": {
-        "reduxify": { "tags": [] },
-        "core": { "tags": [] },
         "frontend": { "tags": [] },
         "frontend-e2e": { "tags": [], "implicitDependencies": ["frontend"] },
         "qapp-qapp-core": { "tags": [] },
