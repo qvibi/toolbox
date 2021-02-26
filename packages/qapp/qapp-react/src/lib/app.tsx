@@ -3,6 +3,6 @@ import { Provider } from 'react-redux';
 
 import { IQApp } from '@qvibi-toolbox/qapp';
 
-export function withQApp(qApp: IQApp, node: React.ReactNode) {
-    return <Provider store={qApp.getReduxStore()}>{node}</Provider>;
-}
+export const withQApp = (qApp: IQApp, Element: React.ElementType) => ({ ...props }) => (
+    <Provider store={qApp.getReduxStore()}>{<Element {...props} />}</Provider>
+);

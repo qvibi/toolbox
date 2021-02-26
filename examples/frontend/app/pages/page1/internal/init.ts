@@ -1,11 +1,9 @@
 import { createModule } from '@qvibi-toolbox/qapp';
 
-import { exampleApp } from '../../../core';
+import { QAPP } from '../../../core';
 
-import { page1ModuleDef } from './def';
+import { PAGE1_MODULE_DEF } from './def';
 import { reducer } from './logic/reducer';
 import { saga } from './logic/sagas';
 
-export function init() {
-    exampleApp.addModule(createModule(page1ModuleDef, { reducer: reducer, saga: saga }));
-}
+QAPP.addModule(createModule(PAGE1_MODULE_DEF, { reducer: reducer, saga: saga }));

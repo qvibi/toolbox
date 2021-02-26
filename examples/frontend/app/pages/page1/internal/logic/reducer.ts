@@ -1,9 +1,9 @@
 import { createModuleReducer, on } from '@qvibi-toolbox/qapp';
 
-import { page1ModuleDef } from '../def';
+import { PAGE1_MODULE_DEF } from '../def';
 import { loadCatFactsBeganEvent, loadCatFactsDoneEvent, loadCatFactsFailedEvent } from './actions';
 
-export const reducer = createModuleReducer(page1ModuleDef, { loading: false, facts: [] }, [
+export const reducer = createModuleReducer(PAGE1_MODULE_DEF, { loading: false, facts: [] }, [
     on(loadCatFactsBeganEvent, state => {
         return {
             ...state,

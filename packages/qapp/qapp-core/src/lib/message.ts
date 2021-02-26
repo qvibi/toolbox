@@ -46,9 +46,12 @@ function defineMsg<TModuleDef extends AnyQAppModuleDef, TModuleName extends Extr
 
 export const withPayload = <TPayload = {}>(): TPayload => null;
 
-export function defineMsgs<TModuleDef extends AnyQAppModuleDef, TModuleName extends ExtractQAppModuleName<TModuleDef>>(
-    moduleDef: TModuleDef,
-): <TType extends string, TPayload>(type: `${TType}`, _payload: TPayload) => IQAppMessageCreator<`${TModuleName} ${TType}`, TPayload> {
+type QAppDefineMsgDelegate<TModuleDef extends AnyQAppModuleDef> = <TType extends string, TPayload>(
+    type: `${TType}`,
+    _payload: TPayload,
+) => IQAppMessageCreator<`${ExtractQAppModuleName<TModuleDef>} ${TType}`, TPayload>;
+
+export function defineMsgs<TModuleDef extends AnyQAppModuleDef>(moduleDef: TModuleDef): QAppDefineMsgDelegate<TModuleDef> {
     return (type, payload) => {
         return defineMsg(moduleDef, type, payload);
     };
