@@ -14,19 +14,11 @@ jobs:
           node-version: "12.x"
       - run: npm ci
       - run: npm run test:all
-      - run: npm run build core
-      - run: npm run build reduxify
       - run: npm run build qapp-qapp-core
       - run: npm run build qapp-qapp-react
       - uses: actions/setup-node@v1
         with:
           registry-url: "https://registry.npmjs.org"
-      - run: npm publish ./dist/packages/core --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm publish ./dist/packages/reduxify --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm publish ./dist/packages/qapp/qapp-core --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
