@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "declaration": true,
+        "declarationDir": "./dist",
+        "declarationMap": true,
+        "lib": ["DOM"],
+        "jsx": "react"
+    },
+    "include": ["./src/**/*"],
+    "exclude": ["**/*.spec.*"]
+}
