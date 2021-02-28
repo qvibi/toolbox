@@ -15,7 +15,7 @@ jobs:
           node-version: "12.x"
       - uses: actions/checkout@v2
         with:
-          fetch_depth: 0
+          fetch-depth: 0
       - run: node common/scripts/install-run-rush.js change --verify
         name: 'Verify Change Logs'
       - run: node common/scripts/install-run-rush.js install
