@@ -20,6 +20,8 @@ jobs:
         name: 'Verify Change Logs'
       - run: node common/scripts/install-run-rush.js install
         name: 'Rush Install'
+      - run: node common/scripts/install-run-rush.js check
+        name: 'Rush Check'
       - run: node common/scripts/install-run-rush.js rebuild
         name: 'Rush Rebuild'
       # - run: node common/scripts/install-run-rush.js test
