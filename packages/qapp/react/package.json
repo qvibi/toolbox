@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
+    "build": "tsc --noEmit && rollup -c --silent",
     "test": ""
   },
   "dependencies": {
