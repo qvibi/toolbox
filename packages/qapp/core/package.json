@@ -24,6 +24,8 @@
     "@babel/core": "7.13.8",
     "@babel/preset-env": "7.13.8",
     "@babel/preset-typescript": "7.13.0",
-    "@types/jest": "26.0.20"
+    "@types/jest": "26.0.20",
+    "ts-jest": "26.5.2",
+    "ts-node": "9.1.1"
   }
 }

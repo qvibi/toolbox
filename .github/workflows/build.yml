@@ -18,4 +18,6 @@ jobs:
         displayName: 'Rush Install'
       - script: 'node common/scripts/install-run-rush.js rebuild --verbose --production'
         displayName: 'Rush Rebuild'
+      - script: 'node common/scripts/install-run-rush.js test'
+        displayName: 'Rush Test'
 

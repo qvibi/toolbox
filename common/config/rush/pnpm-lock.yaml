@@ -27,6 +27,8 @@ dependencies:
   redux-saga: 1.1.3
   reselect: 4.0.0
   rollup: 2.40.0
+  ts-jest: 26.5.2_jest@26.6.3+typescript@4.1.2
+  ts-node: 9.1.1_typescript@4.1.2
   tslib: 2.1.0
   typescript: 4.1.2
   web-vitals: 1.0.1
@@ -3400,6 +3402,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Y9J6ZjXtoYh8RnXVCMOU/ttDmk1aBjunq9vO0ta5x85WDQiQfUF9sIPBITdbiiIVcBo03Hi3jMxigBtsddlXRw==
+  /arg/4.1.3:
+    dev: false
+    resolution:
+      integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==
   /argparse/1.0.10:
     dependencies:
       sprintf-js: 1.0.3
@@ -4115,6 +4121,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-vIyhWmIkULaq04Gt93txdh+j02yX/JzlyhLYbV3YQCn/zvES3JnY7TifHHvvr1w5hTDluNKMkV05cs4vy8Q7sw==
+  /bs-logger/0.2.6:
+    dependencies:
+      fast-json-stable-stringify: 2.1.0
+    dev: false
+    engines:
+      node: '>= 6'
+    resolution:
+      integrity: sha512-pd8DCoxmbgc7hyPKOvxtqNcjYoOsABPQdcCUjGp3d42VR2CX1ORhk2A87oqqu5R1kk+76nsxZupkmyd+MVtCog==
   /bser/2.1.1:
     dependencies:
       node-int64: 0.4.0
@@ -4766,6 +4780,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-MJG9liiZ+ogc4TzUwuvbER1JRdgvUFSB5+VR/g5h82fGaIRWMWddtKBHi7/sVhfjQZ6SehlyhvQYrcYkaUIpLg==
+  /create-require/1.1.1:
+    dev: false
+    resolution:
+      integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
   /cross-spawn/6.0.5:
     dependencies:
       nice-try: 1.0.5
@@ -5269,6 +5287,12 @@ packages:
       node: '>= 10.14.2'
     resolution:
       integrity: sha512-Mv/TDa3nZ9sbc5soK+OoA74BsS3mL37yixCvUAQkiuA4Wz6YtwP/K47n2rv2ovzHZvoiQeA5FTQOschKkEwB0Q==
+  /diff/4.0.2:
+    dev: false
+    engines:
+      node: '>=0.3.1'
+    resolution:
+      integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
   /diffie-hellman/5.0.3:
     dependencies:
       bn.js: 4.12.0
@@ -8518,6 +8542,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==
+  /make-error/1.3.6:
+    dev: false
+    resolution:
+      integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
   /makeerror/1.0.11:
     dependencies:
       tmpl: 1.0.4
@@ -12377,6 +12405,47 @@ packages:
     dev: false
     resolution:
       integrity: sha512-c3zayb8/kWWpycWYg87P71E1S1ZL6b6IJxfb5fvsUgsf0S2MVGaDhDXXjDMpdCpfWXqptc+4mXwmiy1ypXqRAA==
+  /ts-jest/26.5.2_jest@26.6.3+typescript@4.1.2:
+    dependencies:
+      '@types/jest': 26.0.20
+      bs-logger: 0.2.6
+      buffer-from: 1.1.1
+      fast-json-stable-stringify: 2.1.0
+      jest: 26.6.3
+      jest-util: 26.6.2
+      json5: 2.2.0
+      lodash: 4.17.21
+      make-error: 1.3.6
+      mkdirp: 1.0.4
+      semver: 7.3.4
+      typescript: 4.1.2
+      yargs-parser: 20.2.6
+    dev: false
+    engines:
+      node: '>= 10'
+    hasBin: true
+    peerDependencies:
+      jest: '>=26 <27'
+      typescript: '>=3.8 <5.0'
+    resolution:
+      integrity: sha512-bwyJ2zJieSugf7RB+o8fgkMeoMVMM2KPDE0UklRLuACxjwJsOrZNo6chrcScmK33YavPSwhARffy8dZx5LJdUQ==
+  /ts-node/9.1.1_typescript@4.1.2:
+    dependencies:
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      source-map-support: 0.5.19
+      typescript: 4.1.2
+      yn: 3.1.1
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    hasBin: true
+    peerDependencies:
+      typescript: '>=2.7'
+    resolution:
+      integrity: sha512-hPlt7ZACERQGf03M253ytLY3dHbGNGrAq9qIHWUY9XHYl1z7wYngSr3OQ5xmui8o2AaxsONxIzjafLUiWBo1Fg==
   /ts-pnp/1.2.0_typescript@4.1.2:
     dependencies:
       typescript: 4.1.2
@@ -13296,6 +13365,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==
+  /yargs-parser/20.2.6:
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-AP1+fQIWSM/sMiET8fyayjx/J+JmTPt2Mr0FkrgqB4todtfa53sOsrSAcIrJRD5XS20bKUwaDIuMkWKCEiQLKA==
   /yargs/13.3.2:
     dependencies:
       cliui: 5.0.0
@@ -13329,6 +13404,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
+  /yn/3.1.1:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
   /yocto-queue/0.1.0:
     dev: false
     engines:
@@ -13357,7 +13438,7 @@ packages:
     dev: false
     name: '@rush-temp/examples-react-webapp'
     resolution:
-      integrity: sha512-DA8dxUJqRtHvAdhk4UWNPB9pjdIOwTT0Vf0AAGWoA2jB6ZhIeC7g9n5cpUywpec/nWb0f99+Zt5rL4HHmyEmZw==
+      integrity: sha512-a+CIDkBF09a62qPqsD78O4MrgMCsQvTyR4zBUgAs+7smgoSpyZNZp7zGCOZ2gbRr0ckHLaASwTVNpLr6szMo2Q==
       tarball: file:projects/examples-react-webapp.tgz
     version: 0.0.0
   file:projects/qapp-react.tgz_react-dom@17.0.1:
@@ -13377,6 +13458,8 @@ packages:
       redux-saga: 1.1.3
       reselect: 4.0.0
       rollup: 2.40.0
+      ts-jest: 26.5.2_jest@26.6.3+typescript@4.1.2
+      ts-node: 9.1.1_typescript@4.1.2
       tslib: 2.1.0
       typescript: 4.1.2
     dev: false
@@ -13385,7 +13468,7 @@ packages:
     peerDependencies:
       react-dom: '*'
     resolution:
-      integrity: sha512-bBP04PGpFOsaxMKzLWz0/pHtjAfe7XqYKsVEUe+E+E3V95hnSNY9sn+xPn9fo6Iinod9kluZzDHGV1OZ4ddSNQ==
+      integrity: sha512-07ccMC9Sr4Kpx2VQuK8hkfamBxOmwb5g9WUBnsEvRvjUxqhNhmALFxN1xrL6zFA4rbHhekc9RKGaSWcKqysbRA==
       tarball: file:projects/qapp-react.tgz
     version: 0.0.0
   file:projects/qapp.tgz_react@17.0.1:
@@ -13402,6 +13485,8 @@ packages:
       redux-saga: 1.1.3
       reselect: 4.0.0
       rollup: 2.40.0
+      ts-jest: 26.5.2_jest@26.6.3+typescript@4.1.2
+      ts-node: 9.1.1_typescript@4.1.2
       tslib: 2.1.0
       typescript: 4.1.2
     dev: false
@@ -13410,7 +13495,7 @@ packages:
     peerDependencies:
       react: '*'
     resolution:
-      integrity: sha512-PSkM2LiguNOoLdJh4+O7xJIstplxN8G37ipmGiU+fVHOkuPa9g6WKAqAsDnF0Y8DJlu7nTe+Vb15dP32WwnIIw==
+      integrity: sha512-gXQG/OamL5TrSjKLI+u+Ai5E3Eq6MQzUeXlK+GbUMq3grAj9tW5s+4ie0gwjfZ88JUK2ZxDn+arsjSVUOI/mkg==
       tarball: file:projects/qapp.tgz
     version: 0.0.0
 registry: ''
@@ -13443,6 +13528,8 @@ specifiers:
   redux-saga: 1.1.3
   reselect: 4.0.0
   rollup: 2.40.0
+  ts-jest: 26.5.2
+  ts-node: 9.1.1
   tslib: 2.1.0
   typescript: 4.1.2
   web-vitals: 1.0.1
