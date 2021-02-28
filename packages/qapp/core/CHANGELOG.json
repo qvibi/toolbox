@@ -1,0 +1,20 @@
+{
+  "name": "@qvibi-toolbox/qapp",
+  "entries": [
+    {
+      "version": "0.2.1",
+      "tag": "@qvibi-toolbox/qapp_v0.2.1",
+      "date": "Sun, 28 Feb 2021 02:40:57 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "do typechecking on build"
+          },
+          {
+            "comment": "initial set of functionality"
+          }
+        ]
+      }
+    }
+  ]
+}

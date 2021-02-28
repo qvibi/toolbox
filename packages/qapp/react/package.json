@@ -1,6 +1,6 @@
 {
   "name": "@qvibi-toolbox/qapp-react",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "qApp package with React",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -15,7 +15,7 @@
     "react-router": "5.2.0",
     "react": "17.0.1",
     "react-redux": "7.2.2",
-    "@qvibi-toolbox/qapp": "0.2.0"
+    "@qvibi-toolbox/qapp": "0.2.1"
   },
   "devDependencies": {
     "rollup": "2.40.0",
