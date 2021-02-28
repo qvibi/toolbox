@@ -12,12 +12,12 @@ jobs:
         with:
           node-version: "12.x"
       - uses: actions/checkout@v2
-      - script: 'node common/scripts/install-run-rush.js change --verify'
+      - run: node common/scripts/install-run-rush.js change --verify
         displayName: 'Verify Change Logs'
-      - script: 'node common/scripts/install-run-rush.js install'
+      - run: node common/scripts/install-run-rush.js install
         displayName: 'Rush Install'
-      - script: 'node common/scripts/install-run-rush.js rebuild --verbose --production'
+      - run: node common/scripts/install-run-rush.js rebuild --verbose --production
         displayName: 'Rush Rebuild'
-      - script: 'node common/scripts/install-run-rush.js test'
+      - run: node common/scripts/install-run-rush.js test
         displayName: 'Rush Test'
 
