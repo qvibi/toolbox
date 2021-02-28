@@ -448,11 +448,13 @@
     // 
     {
       "packageName": "@qvibi-toolbox/qapp",
-      "projectFolder": "./packages/qapp/core"
+      "projectFolder": "./packages/qapp/core",
+      "shouldPublish": true
     },
     {
       "packageName": "@qvibi-toolbox/qapp-react",
-      "projectFolder": "./packages/qapp/react"
+      "projectFolder": "./packages/qapp/react",
+      "shouldPublish": true
     },
     {
       "packageName": "examples-react-webapp",
