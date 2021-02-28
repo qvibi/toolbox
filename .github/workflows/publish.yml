@@ -10,6 +10,7 @@ jobs:
         with:
           node-version: "12.x"
       - uses: actions/checkout@v2
+      - uses: fregante/setup-git-user@v1
       - run: node common/scripts/install-run-rush.js version --bump --target-branch ${GITHUB_REF##*/}
         name: 'Rush Version'
       - run: node common/scripts/install-run-rush.js publish --apply --publish --include-all --target-branch ${GITHUB_REF##*/} --add-commit-details --set-access-level public
