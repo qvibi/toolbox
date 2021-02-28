@@ -22,6 +22,6 @@ jobs:
         name: 'Rush Install'
       - run: node common/scripts/install-run-rush.js rebuild
         name: 'Rush Rebuild'
-      - run: node common/scripts/install-run-rush.js test
-        name: 'Rush Test'
+      # - run: node common/scripts/install-run-rush.js test
+      #   name: 'Rush Test'
 
