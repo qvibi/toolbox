@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@qvibi-toolbox/qapp-react",
+      "comment": "do typechecking on build",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@qvibi-toolbox/qapp-react",
+  "email": "korobeinikov@outlook.com"
+}

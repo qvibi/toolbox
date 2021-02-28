@@ -8,7 +8,8 @@
         "declaration": true,
         "declarationDir": "./dist",
         "declarationMap": true,
-        "lib": ["ES2015", "DOM"]
+        "lib": ["ES2015", "DOM"],
+        "skipLibCheck": true
     },
     "include": ["./src/**/*"],
     "exclude": ["**/*.spec.*"]

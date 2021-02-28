@@ -9,6 +9,7 @@
         "declarationDir": "./dist",
         "declarationMap": true,
         "lib": ["ES2015", "DOM"],
+        "skipLibCheck": true,
         "jsx": "react"
     },
     "include": ["./src/**/*"],
