@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@qvibi-toolbox/qapp",
+      "comment": "initial set of functionality",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@qvibi-toolbox/qapp",
+  "email": "korobeinikov@outlook.com"
+}

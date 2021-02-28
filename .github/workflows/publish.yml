@@ -1,28 +1,21 @@
-name: Publish toolbox packages
+name: Publish
 
-on:
-  push:
-    branches: [master]
+on: workflow_dispatch
 
 jobs:
-  build_and_publish:
+  validate_and_publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - run: npm ci
-      - run: npm run test:all
-      - run: npm run build qapp-qapp-core
-      - run: npm run build qapp-qapp-react
-      - uses: actions/setup-node@v1
-        with:
-          registry-url: "https://registry.npmjs.org"
-      - run: npm publish ./dist/packages/qapp/qapp-core --access public
+      - uses: actions/checkout@v2
+      - run: node common/scripts/install-run-rush.js version --bump --target-branch ${GITHUB_REF##*/}
+        name: 'Rush Version'
+      - run: node common/scripts/install-run-rush.js publish --apply --publish --include-all --target-branch ${GITHUB_REF##*/} --add-commit-details --set-access-level public
+        name: 'Rush Publish'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm publish ./dist/packages/qapp/qapp-react --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+
       

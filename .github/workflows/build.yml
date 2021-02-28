@@ -2,18 +2,24 @@ name: Build
 
 on:
   push:
-    branches: [develop]
+    branches:
+    - 'master'
+    - 'develop'
 
 jobs:
-  build_and_publish:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - run: npm ci
-      - run: npm run test:all
-      - run: npm run build qapp-qapp-core
-      - run: npm run build qapp-qapp-react
-      
+      - uses: actions/checkout@v2
+      - run: node common/scripts/install-run-rush.js change --verify
+        name: 'Verify Change Logs'
+      - run: node common/scripts/install-run-rush.js install
+        name: 'Rush Install'
+      - run: node common/scripts/install-run-rush.js rebuild --verbose --production
+        name: 'Rush Rebuild'
+      - run: node common/scripts/install-run-rush.js test
+        name: 'Rush Test'
+
