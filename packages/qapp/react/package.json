@@ -1,6 +1,6 @@
 {
   "name": "@qvibi-toolbox/qapp-react",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "qApp package with React",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
