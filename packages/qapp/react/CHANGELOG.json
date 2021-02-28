@@ -1,0 +1,25 @@
+{
+  "name": "@qvibi-toolbox/qapp-react",
+  "entries": [
+    {
+      "version": "0.2.1",
+      "tag": "@qvibi-toolbox/qapp-react_v0.2.1",
+      "date": "Sun, 28 Feb 2021 02:40:57 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "do typechecking on build"
+          },
+          {
+            "comment": "initial set of functionality"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@qvibi-toolbox/qapp\" from `0.2.0` to `0.2.1`"
+          }
+        ]
+      }
+    }
+  ]
+}
